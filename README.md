@@ -52,15 +52,54 @@ Model Waveform
 <img width="706" height="167" alt="image" src="https://github.com/user-attachments/assets/bff0d8fd-d679-444e-af37-0b34585853c1" />
 
 Program
+```
+ac=22.4;                // Carrier amplitude
+Am=11.2;              // Message amplitude
+fc=6000;             // Carrier frequency
+fm=600;              // Message frequency
+fs=98000;            // Sampling frequency
+t=0:1/fs:2/fm;       // Time base for two message cycles
 
+wc=2*3.14*fc;        // Carrier angular frequency
+wm=2*3.14*fm;        // Message angular frequency
+
+// Message signal
+e1=(Am*sin(wm*t));
+subplot(4,1,1);
+plot(t,e1);
+
+// Carrier signal
+e2=(ac*sin(wc*t));
+subplot(4,1,2);
+plot(t,e2);
+
+// --- Sideband Components ---
+sbsc1=(Am/2.*cos(wc*t-wm*t))-(Am/2.*cos(wc*t+wm*t));
+sbsc2=(Am/2.*cos(wc*t-wm*t))+(Am/2.*cos(wc*t+wm*t));
+
+// Combination 1 (USB + LSB together => DSB-SC)
+e3=(sbsc2)+(sbsc1);
+subplot(4,1,3);
+plot(t,e3);
+
+// Combination 2 (USB - LSB => isolates one sideband → SSB-SC)
+e4=(sbsc2)-(sbsc1);
+subplot(4,1,4);
+plot(t,e4);
+
+xgrid;
+```
 OUTPUT WAVEFORM
+<img width="1919" height="1079" alt="ssb 1" src="https://github.com/user-attachments/assets/051397b5-d9e3-4cda-8bd3-04032befbe70" />
 
 TABULATION
 
 
+![WhatsApp Image 2025-11-11 at 10 49 19_440213da](https://github.com/user-attachments/assets/8025f00c-9442-4613-9149-77ca760e23c2)
 
 
 
+![WhatsApp Image 2025-11-11 at 10 49 20_22d7ef6d](https://github.com/user-attachments/assets/2f610d11-3ce0-4bfa-ad32-e6aacd1578af)
 
 
 
